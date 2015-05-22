@@ -5,13 +5,13 @@
   <title>表單輸入欄位</title>
 </head>
 <body>
-  <form method="get">
+  <form method="get" action="ch10-1.php">
   
      <!-- 單列文字輸入欄位 -->
     請輸入書籍編號:
-    <input type="text" name="username"> <br>
+    <input type="text" name="no"> <br>
 
-    <input type="submit" value="送出資料">
+    <input type="submit" value="查詢資料">
     <input type="reset" value="清除資料">
   </form>
 </body>
@@ -21,6 +21,18 @@
 
 //header('Content-Type: text/html; charset=utf-8');
 include("mydb.php");
+
+$no=$_GET['no'];
+if (!$_GET['no'])
+
+$sql="select 書籍編號,書籍名稱,價格,姓名 * from books join employee on employee 負責員工編號=員工編號";
+
+else
+{
+$sql="select 書籍編號,書籍名稱,價格,姓名 * from books join employee on employee 負責員工編號=員工編號 where 書籍編號=$no";
+}
+
+echo $sql;
 
 $sql='select * from books';
 //回傳結果
