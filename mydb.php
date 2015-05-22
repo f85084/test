@@ -24,5 +24,5 @@ else
 {
 }
 //設定連線的字元集為 UTF8 編碼
-mysql_query("SET NAMES  big5");
+mysql_query("SET NAMES  utf8");
 ?>
