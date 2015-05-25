@@ -25,20 +25,27 @@ include("mydb.php");
 $no=$_GET['no'];
 if (!$_GET['no'])
 
-$sql="select 書籍編號,書籍名稱,價格,姓名 * from books join employee on employee 負責員工編號=員工編號";
+$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號";
 
 else
 {
-$sql="select 書籍編號,書籍名稱,價格,姓名 * from books join employee on employee 負責員工編號=員工編號 where 書籍編號=$no";
+$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號 where 書籍編號=$no";
 }
 
-echo $sql;
 
-$sql='select * from books';
+$sql = "SELECT * FROM books";
 //回傳結果
-$result=@mysql_query($sql);
+$result=mysql_query($sql);
 echo '總共有' .mysql_num_rows($result).'書';
 echo "<table border=1>";
+echo 
+  "<tr>
+    <td width=10%>書本編號</td>
+    <td width=50%>書本名稱</td>
+    <td width=20%>書本價格</td>
+    <td width=10%>負責員工</td>
+  </tr>";
+
 while ($row=mysql_fetch_array($result))
 {
 echo 
