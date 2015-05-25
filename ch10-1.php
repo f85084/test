@@ -33,7 +33,7 @@ $sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on
 }
 
 
-$sql = "SELECT * FROM books";
+//$sql = "SELECT * FROM books";
 //回傳結果
 $result=mysql_query($sql);
 echo '總共有' .mysql_num_rows($result).'書';
