@@ -64,7 +64,7 @@ echo
     <td width=40%>$row[1]</td>
     <td width=20%>$row[2]</td>
     <td width=10%>$row[3]</td>
-	<td width=10%><a href=ch10-01.php?del=$row[0]>刪除</td>
+	<td width=10%><a href=ch10-1.php?del=$row[0]>刪除</td>
   </tr>";
 }
 echo "</table>";
