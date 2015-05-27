@@ -32,47 +32,42 @@ if ($_GET['del']) {
 
 $no=$_GET['no'];
 
+$sql = "select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號 ";
+
 // 員工編號查詢
-if (!$_GET['no']) {
-	$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號";
-} else {
-	$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號 where 書籍編號=$no";
+if ($_GET['no']) {
+	$sql = $sql."where 書籍編號=".$no;
 }
 
 // 使用價格排序
 if ($_GET['order']==1) {
-	$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號 order by 價格";
+	$sql = $sql."order by 價格";
 }
 if ($_GET['order']==2) {
-	$sql="select 書籍編號,書籍名稱,價格,姓名 from books join employee on  負責員工編號=員工編號 order by 價格 desc";
+	$sql = $sql."order by 價格 desc";
 }
 
 //回傳結果
 $result=mysql_query($sql);
 
+// 表格表題
 echo '總共有' .mysql_num_rows($result).'書';
-echo "<table border=1>";
+echo "<table border=1>
+		<tr>
+			<td width=10%>書本編號</td>
+			<td width=40%>書本名稱</td>";
 
 if ($_GET['order']==2) {
-	echo 
-		"<tr>
-			<td width=10%>書本編號</td>
-			<td width=40%>書本名稱</td>
-			<td width=20%><a href=ch10-1.php?order=1>書本價格</a></td>
-			<td width=10%>負責員工</td>
-			<td width=10%>刪除</td>
-		</tr>";
+	echo "	<td width=20%><a href=ch10-1.php?order=1>書本價格</a></td>";
 } else {
-	echo 
-		"<tr>
-			<td width=10%>書本編號</td>
-			<td width=40%>書本名稱</td>
-			<td width=20%><a href=ch10-1.php?order=2>書本價格</a></td>
-			<td width=10%>負責員工</td>
-			<td width=10%>刪除</td>
-		</tr>";
+	echo "	<td width=20%><a href=ch10-1.php?order=2>書本價格</a></td>";
 }
 
+echo "		<td width=10%>負責員工</td>
+			<td width=10%>刪除</td>
+		</tr>";
+
+// 表格內容
 while ($row=mysql_fetch_array($result)) {
 	echo 
 		"<tr>
