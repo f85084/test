@@ -5,22 +5,44 @@
   <title>表單輸入欄位</title>
 </head>
 <body>
+  <!--查詢-->
   <form method="get" action="ch10-1.php">
-  
      <!-- 單列文字輸入欄位 -->
-    請輸入書籍編號:
-    <input type="text" name="no"> <br>
-
+    請輸入書籍編號:<input type="text" name="no"> <br>
     <input type="submit" value="查詢資料">
     <input type="reset" value="清除資料">
   </form>
+   <br>
+    <br>
+    <form method="get" action="ch10-1.php">
+     <!-- 單列文字輸入欄位 -->
+     新增資料<BR>
+    請輸入書籍名稱:<input type="text" name="name"> <br>
+    請輸入書籍價錢:<input type="text" name="price"> <br>
+    請輸入書籍員工編號:<input type="text" name="people"> <br>
+    <input type="submit" value="新增資料">
+    <input type="reset" value="清除資料">
+  </form>
+  <br>
+  <br>
 </body>
 </html>
 
 <?php
 //header('Content-Type: text/html; charset=utf-8');
 include("mydb.php");
-
+// 新增 
+if ($_GET['name']) {
+	$name=$_GET['name'];
+	$price=$_GET['price'];
+	$people=$_GET['people'];
+    $sql="INSERT books (書籍名稱,價格,負責員工編號)
+        VALUES ('{$name}','{$price}','{$people}')";
+	$result=mysql_query($sql);
+	//異動會顯示異動資料
+	if (mysql_affected_rows()>=1);
+	echo '新增成功<br><br>';  
+}
 // 刪除
 if ($_GET['del']) {
 	$a=$_GET['del'];
@@ -101,7 +123,8 @@ if ($_GET['order']==8) {
 	echo "	<td width=10%><a href=ch10-1.php?order=8>負責員工</a></td>";
 }
 
-echo "		
+echo "	
+            <td width=10%>編輯</td>	
 			<td width=10%>刪除</td>
 		</tr>";
 
@@ -113,7 +136,8 @@ while ($row=mysql_fetch_array($result)) {
 			<td width=40%>$row[1]</td>
 			<td width=20%>$row[2]</td>
 			<td width=10%>$row[3]</td>
-			<td width=10%><a href=ch10-1.php?del=$row[0]>刪除</td>
+			<td width=10%><a href=ch10-1.php?edit=$row[0]>編輯<a></td>
+			<td width=10%><a href=ch10-1.php?del=$row[0]>刪除<a></td>
 		</tr>";
 }
 
